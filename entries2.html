@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Salon Appointments</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #2980b9;
+            text-transform: uppercase;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            background-color: #34495e;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #2980b9;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        th {
+            color: #ecf0f1;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #2c3e50;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #34495e;
+        }
+
+        tbody tr:hover {
+            background-color: #16a085;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1f6a89;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 1.2em;
+            color: #bdc3c7;
+            margin-top: 20px;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: left;
+        }
+
+        .modal-content input,
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal-content button {
+            background-color: #16a085;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #1abc9c;
+        }
+
+        .modal-close {
+            cursor: pointer;
+            color: #e74c3c;
+            float: right;
+            font-size: 1.5em;
+        }
+
+        .modal-close:hover {
+            color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Salon Appointments</h2>
+
+    <table id="entriesTable" border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Slot</th>
+                <th>Phone Number</th>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- User-specific entries will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <footer>
+        Manage your appointments easily.
+    </footer>
+
+    <!-- Modal for editing an entry -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3>Edit Appointment</h3>
+            <input type="hidden" id="editId">
+            <label>Name:</label>
+            <input type="text" id="editName" disabled>
+            <label>Slot:</label>
+            <input type="email" id="editEmail" disabled>
+            <label>Phone Number:</label>
+            <input type="text" id="editNumber">
+            <label>Service:</label>
+            <select id="editService">
+                <option value="Select category">Select category</option>
+                    <option value="Beauty & spa">Beauty & spa</option>
+                    <option value="Body massage">Body massage</option>
+                    <option value="Shaving & Facial">Shaving & Facial</option>
+                    <option value="Hair Color">Hair Color</option>
+            </select>
+            <label>Date:</label>
+            <input type="date" id="editDate">
+            <label>Message:</label>
+            <textarea id="editMessage" rows="3"></textarea>
+
+            <label>Status</label>
+            <select id="editStatus">
+                
+                
+            </select>
+
+
+            <button onclick="saveEdit()">Save</button>
+        </div>
+    </div>
+
+    <button onClick="window.location.reload();">Refresh Page</button>
+
+    <button onClick="location.href = 'loggedin.html#appointment';">Go back</button>
+
+    <script>
+        // Function to load entries from localStorage and filter them by current user
+        function loadEntries() {
+            const currentUser = sessionStorage.getItem("loggedInUser"); // Get logged-in username from sessionStorage
+            if (!currentUser) {
+                alert("Please log in to view your appointments.");
+                window.location.href="index.html"
+                return;
+            }
+
+            const entries = JSON.parse(localStorage.getItem("entries")) || [];
+            const userEntries = entries.filter(entry => entry.name === currentUser); // Filter entries by username
+
+            const tableBody = document.querySelector("#entriesTable tbody");
+            tableBody.innerHTML = "";  // Clear existing rows
+
+            userEntries.forEach(entry => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${entry.name}</td>
+                    <td>${entry.email}</td>
+                    <td>${entry.number}</td>
+                    <td>${entry.service}</td>
+                    <td>${entry.date}</td>
+                    <td>${entry.message}</td>
+                    <td>${entry.status}</td>
+                    <td>
+                        <button onclick="editEntry(${entry.id})">Edit</button>
+                        <button onclick="deleteEntry(${entry.id})">Delete</button>
+                    </td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Function to delete an entry
+        function deleteEntry(id) {
+            let entries = JSON.parse(localStorage.getItem("entries")) || [];
+
+            // Filter out the entry with the matching ID
+            entries = entries.filter(entry => entry.id !== id);
+
+            // Save the updated entries back to localStorage
+            localStorage.setItem("entries", JSON.stringify(entries));
+
+            // Reload the entries to reflect the deletion
+            loadEntries();
+        }
+
+        // Function to open modal for editing an entry
+        function editEntry(id) {
+            const entries = JSON.parse(localStorage.getItem("entries")) || [];
+            const entry = entries.find(entry => entry.id === id);
+
+            // Populate modal fields with entry data
+            document.getElementById('editId').value = entry.id;
+            document.getElementById('editName').value = entry.name;
+            document.getElementById('editEmail').value = entry.email;
+            document.getElementById('editNumber').value = entry.number;
+            document.getElementById('editService').value = entry.service;
+            document.getElementById('editDate').value = entry.date;
+            document.getElementById('editMessage').value = entry.message;
+            
+
+            // Display modal
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        // Function to save the edited entry
+        function saveEdit() {
+            const id = document.getElementById('editId').value;
+            const number = document.getElementById('editNumber').value;
+            const service = document.getElementById('editService').value;
+            const date = document.getElementById('editDate').value;
+            const message = document.getElementById('editMessage').value;
+
+            let entries = JSON.parse(localStorage.getItem("entries")) || [];
+
+            // Find the entry by ID and update its details
+            const entryIndex = entries.findIndex(entry => entry.id == id);
+            if (entryIndex !== -1) {
+                entries[entryIndex].number = number;
+                entries[entryIndex].service = service;
+                entries[entryIndex].date = date;
+                entries[entryIndex].message = message;
+            }
+
+            // Save the updated entries back to localStorage
+            localStorage.setItem("entries", JSON.stringify(entries));
+
+            // Close modal and reload entries
+            closeModal();
+            loadEntries();
+        }
+
+        // Function to close modal
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        // Initialize the page by loading user-specific entries
+        loadEntries();
+    </script>
+</body>
+</html>
+    

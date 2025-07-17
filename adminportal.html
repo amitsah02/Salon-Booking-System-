@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Add Barbers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .form-container {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 50px;
+        }
+        button:hover {
+            background-color: #1f6a89;
+        }
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add New Barbers</h2>
+
+    <div class="form-container">
+        <input type="text" id="newBarberUsername" placeholder="Barber Username">
+        <input type="password" id="newBarberPassword" placeholder="Barber Password">
+        <button onclick="addBarber()">Add Barber</button>
+
+        <button onClick="location.href = 'barberdelete.html';">Edit barber</button>
+
+        <button onClick="location.href = 'index2test.html';">Go back</button>
+        <p id="statusMessage" class="success"></p>
+    </div>
+
+    <script>
+        // Function to add a new barber to localStorage
+        function addBarber() {
+            const username = document.getElementById('newBarberUsername').value;
+            const password = document.getElementById('newBarberPassword').value;
+
+            if (username && password) {
+                // Get existing barbers from localStorage
+                let barbers = JSON.parse(localStorage.getItem('barbers')) || [];
+
+                // Check if the barber already exists
+                if (barbers.some(b => b.username === username)) {
+                    document.getElementById('statusMessage').textContent = 'Barber already exists!';
+                    document.getElementById('statusMessage').className = 'error';
+                } else {
+                    // Add new barber to the list
+                    barbers.push({ username, password });
+                    localStorage.setItem('barbers', JSON.stringify(barbers));
+
+                    document.getElementById('statusMessage').textContent = 'Barber added successfully!';
+                    document.getElementById('statusMessage').className = 'success';
+
+                    // Clear input fields
+                    document.getElementById('newBarberUsername').value = '';
+                    document.getElementById('newBarberPassword').value = '';
+                }
+            } else {
+                document.getElementById('statusMessage').textContent = 'Please fill out both fields!';
+                document.getElementById('statusMessage').className = 'error';
+            }
+        }
+    </script>
+</body>
+</html>

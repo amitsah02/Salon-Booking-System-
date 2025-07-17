@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="email"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1e8449;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Customer Feedback</h2>
+
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="barberRating">Choose the staff member</label>
+            <select id="barberRating">
+                <option value="">Select a barber</option>
+                <option value="Barber1">Barber1</option>
+                <option value="Barber2">Barber2</option>
+                <option value="Barber3">Barber3</option>
+                <option value="Don't know">None</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="serviceRating">Rate our service:</label>
+            <select id="serviceRating">
+                <option value="">Select a rating</option>
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor">Poor</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="recommendation">Would you recommend us to others?</label>
+            <select id="recommendation">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="message">Additional Comments:</label>
+            <textarea id="message" rows="5" placeholder="Write your feedback here..."></textarea>
+        </div>
+
+        <button onclick="submitFeedback()">Submit Feedback</button>
+    </div>
+
+    <script>
+        function submitFeedback() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const serviceRating = document.getElementById('serviceRating').value;
+            const recommendation = document.getElementById('recommendation').value;
+            const message = document.getElementById('message').value;
+            const barberRating = document.getElementById('barberRating').value;
+
+            if (name && email && serviceRating && recommendation) {
+                const feedback = {
+                    name,
+                    email,
+                    barberRating,
+                    serviceRating,
+                    recommendation,
+                    message
+                };
+
+                // Get existing feedback from localStorage or initialize empty array
+                const feedbackList = JSON.parse(localStorage.getItem('feedbackList')) || [];
+
+                // Add new feedback to the list
+                feedbackList.push(feedback);
+
+                // Save updated feedback list to localStorage
+                localStorage.setItem('feedbackList', JSON.stringify(feedbackList));
+
+                alert('Thank you for your feedback!');
+                // Clear the form after submission
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('barberRating').value = '';
+                document.getElementById('serviceRating').value = '';
+                document.getElementById('recommendation').value = '';
+                document.getElementById('message').value = '';
+            } else {
+                alert('Please fill out all the required fields.');
+            }
+            window.location.href="loggedin.html"
+        }
+    </script>
+
+</body>
+</html>

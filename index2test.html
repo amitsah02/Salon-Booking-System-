@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .login-container {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .option-card {
+            background-color: #3498db;
+            color: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .option-card:hover {
+            background-color: #2980b9;
+        }
+
+        .option-card.admin {
+            background-color: #e74c3c;
+        }
+
+        .option-card.admin:hover {
+            background-color: #c0392b;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            margin-left: 160px;
+        }
+
+        .navbar a {
+            color: #3498db;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        button{ width: 100%;
+            padding: 10px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1f6a89;
+        }
+
+        .status-message {
+            font-size: 14px;
+            margin-top: 15px;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            
+            <a href="index.html">Go back</a>
+        </nav>
+        <h1>Salon Login Portal</h1>
+        
+        
+        
+
+        <div class="option-card" onclick="showLoginForm()">
+            <a href="#"  style="color: inherit; text-decoration: none;">Login as Barber</a>
+        </div>
+
+        <div class="option-card admin" onclick="showAdminLoginForm()">
+            <a href="#" style="color: inherit; text-decoration: none;" onclick="showAdminLoginForm()">Admin Login</a>
+        </div>
+
+        <div id="loginForm" class="login-container" style="display:none;">
+            <h3>Barber Login</h3>
+            <input type="text" id="barberUsername" placeholder="Username">
+            <input type="password" id="barberPassword" placeholder="Password">
+            <button onclick="barberLogin()">Login</button>
+            <br>
+            <br>
+            <button onClick="location.href = 'index2test.html';">Go back</button>
+            <p id="loginError" class="error"></p>
+        </div>
+    
+        <!-- Admin Login Form -->
+        <div id="adminLoginForm" class="login-container" style="display:none;">
+            <h3>Admin Login</h3>
+            <input type="text" id="adminUsername" placeholder="Username">
+            <input type="password" id="adminPassword" placeholder="Password">
+            <button onclick="adminLogin()">Admin Login</button>
+            <br>
+            <br>
+            <button onClick="location.href = 'index2test.html';">Go back</button>
+            <p id="adminLoginError" class="error"></p>
+        </div>
+
+        <p class="status-message" id="statusMessage"></p>
+    </div>
+
+    <script>
+        // Hardcoded admin credentials
+        const adminCredentials = {
+            username: 'admin',
+            password: 'admin123'
+        };
+
+        // Show barber login form
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('adminLoginForm').style.display = 'none';
+        }
+
+        // Show admin login form
+        function showAdminLoginForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('adminLoginForm').style.display = 'block';
+        }
+
+        // Barber login function
+        function barberLogin() {
+            const username = document.getElementById('barberUsername').value;
+            const password = document.getElementById('barberPassword').value;
+
+            // Retrieve barbers from localStorage
+            const barbers = JSON.parse(localStorage.getItem('barbers')) || [];
+
+            // Check if barber exists
+            const barber = barbers.find(b => b.username === username && b.password === password);
+            if (barber) {
+                sessionStorage.setItem('currentUser', username); // Save barber session
+                window.location.href = 'loggedin2.html'; // Redirect to barber page
+            } else {
+                document.getElementById('loginError').textContent = 'Invalid credentials!';
+            }
+
+
+            
+        }
+
+        // Admin login function
+        function adminLogin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                window.location.href = 'adminportal.html'; // Redirect to admin portal
+            } else {
+                document.getElementById('adminLoginError').textContent = 'Invalid admin credentials!';
+            }
+        }
+    </script>
+</body>
+</html>

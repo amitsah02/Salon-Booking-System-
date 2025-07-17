@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit or Delete Barber</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        .barber-list {
+            list-style: none;
+            padding: 0;
+        }
+        .barber-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .barber-item span {
+            font-weight: bold;
+        }
+        .button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+        .button:hover {
+            background-color: #2980b9;
+        }
+        .delete-button {
+            background-color: #e74c3c;
+        }
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+        #statusMessage {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit or Delete Barber</h2>
+        <ul class="barber-list" id="barberList">
+            <!-- Barbers will be loaded here -->
+        </ul>
+
+        <button class="button" onClick="location.href = 'adminportal.html';">Go back</button>
+        <p id="statusMessage"></p>
+    </div>
+
+    <script>
+        function loadBarbers() {
+            const barberList = document.getElementById("barberList");
+            barberList.innerHTML = ""; // Clear the list before loading
+            const barbers = JSON.parse(localStorage.getItem('barbers')) || [];
+
+            if (barbers.length === 0) {
+                barberList.innerHTML = "<p>No barbers available.</p>";
+            } else {
+                barbers.forEach((barber, index) => {
+                    const listItem = document.createElement("li");
+                    listItem.className = "barber-item";
+                    listItem.innerHTML = `
+                        <span>${barber.username}</span>
+                        <button class="button" onclick="editPassword(${index})">Edit Password</button>
+                        <button class="button delete-button" onclick="deleteBarber(${index})">Delete</button>
+                    `;
+                    barberList.appendChild(listItem);
+                });
+            }
+        }
+
+        function deleteBarber(index) {
+            let barbers = JSON.parse(localStorage.getItem('barbers')) || [];
+            
+            if (index > -1 && index < barbers.length) {
+                barbers.splice(index, 1); // Remove the barber at the specified index
+                localStorage.setItem('barbers', JSON.stringify(barbers)); // Update localStorage
+                loadBarbers(); // Refresh the list
+                document.getElementById("statusMessage").textContent = "Barber deleted successfully!";
+                document.getElementById("statusMessage").className = "success";
+            } else {
+                document.getElementById("statusMessage").textContent = "Error deleting barber.";
+                document.getElementById("statusMessage").className = "error";
+            }
+        }
+
+        function editPassword(index) {
+            const barbers = JSON.parse(localStorage.getItem('barbers')) || [];
+            const newPassword = prompt("Enter new password for " + barbers[index].username);
+
+            if (newPassword) {
+                barbers[index].password = newPassword; // Update password
+                localStorage.setItem('barbers', JSON.stringify(barbers)); // Save to localStorage
+                loadBarbers(); // Refresh the list
+                document.getElementById("statusMessage").textContent = "Password updated successfully!";
+                document.getElementById("statusMessage").className = "success";
+            } else {
+                document.getElementById("statusMessage").textContent = "Password update cancelled.";
+                document.getElementById("statusMessage").className = "error";
+            }
+        }
+
+        // Initial load of barbers
+        loadBarbers();
+    </script>
+</body>
+</html>

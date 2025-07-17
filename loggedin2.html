@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>Salon Reservation System</title>
+  <meta name="title" content="Barber - Barbers & Hair Cutting">
+  <meta name="description" content="This is a barber html template made by codewithsadee">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300,400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - flaticon
+  -->
+  <link rel="stylesheet" href="assets/css/flaticon.min.css">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./assets/images/bgpic.jpg">
+
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header">
+
+    <div class="header-top">
+      <div class="container">
+
+        <ul class="header-top-list">
+
+          <li class="header-top-item">
+            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+
+            <p class="item-title">Call Us :</p>
+
+            <a href="tel:01234567895" class="item-link">0123456789</a>
+          </li>
+
+          <li class="header-top-item">
+            <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+            <p class="item-title">Opening Hour :</p>
+
+            <p class="item-text">Sunday - Friday, 08 am - 09 pm</p>
+          </li>
+
+          <li>
+            <ul class="social-list">
+
+              <li>
+                <a href="#" class="social-link">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="social-link">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="social-link">
+                  <ion-icon name="logo-youtube"></ion-icon>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="social-link">
+                  <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+
+
+    <div class="header-bottom" data-header>
+      <div class="container">
+
+        <a href="#" class="logo">
+          
+          <span class="span">Hair Salon</span>
+        </a>
+
+        <nav class="navbar container" data-navbar>
+          <ul class="navbar-list">
+
+            <li class="navbar-item">
+              <a href="#home" class="navbar-link" data-nav-link>Home</a>
+            </li>
+
+            <li class="navbar-item">
+              <a href="#services" class="navbar-link" data-nav-link>Services</a>
+            </li>
+
+            <li class="navbar-item">
+              <a href="#appointment" class="navbar-link" data-nav-link>Appointments</a>
+            </li>
+
+            <li class="navbar-item">
+              <a href="#appointment" class="navbar-link" data-nav-link>Feedback</a>
+            </li>
+
+           
+
+            <li onclick="clearstor()" class="navbar-item">
+              <a href="index2test.html" class="navbar-link" id="logoutclear" data-nav-link id="log out">Log out</a>
+            </li>
+
+            <li class="navbar-item">
+              <a href="#" id="hjk" class="navbar-link" data-nav-link id="log out">Log out</a>
+            </li>
+
+          </ul>
+        </nav>
+
+        <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+          <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+        </button>
+
+        <a href="entries.html" class="btn has-before">
+          <span class="span">View Appointments</span>
+
+          <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+        </a>
+
+      </div>
+    </div>
+
+  </header>
+
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero has-before has-bg-image" id="home" aria-label="home"
+        style="background-image: url('./assets/images/bgpic.jpg')">
+        <div class="container">
+
+          <h1 class="h1 hero-title">Barber Portal</h1>
+
+          <p class="hero-text">
+            View appointments and customer feedback
+          </p>
+
+          <a href="#appointment" class="btn has-before">
+            <span class="span">View appointments and feedback</span>
+
+            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+          </a>
+
+        </div>
+      </section>
+
+
+
+
+      
+      <!-- 
+        - #SERVICE
+      -->
+
+      
+
+      <section class="section service" id="services" aria-label="services">
+        <div class="container">
+
+          <h2 class="h2 section-title text-center">Services We Provide</h2>
+
+          <br>
+
+          <ul class="grid-list">
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-salon"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Hair Cutting Style</a>
+                </h3>
+
+                <p class="card-text">
+                  Precision haircuts tailored to your unique style.
+                </p>
+
+                <a href="#" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-shampoo"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Hair Washing</a>
+                </h3>
+
+                <p class="card-text">
+                  A relaxing and revitalizing hair wash experience.
+                </p>
+
+                <a href="#" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-hot-stone"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Body Treatments</a>
+                </h3>
+
+                <p class="card-text">
+                  Pamper your body with our luxurious body treatments.
+                </p>
+
+                <a href="#" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-treatment"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Beauty & Spa</a>
+                </h3>
+
+                <p class="card-text">
+                  Indulge in a world of beauty and relaxation.
+                </p>
+
+                <a href="#" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-shaving-razor"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Stylist Shaving</a>
+                </h3>
+
+                <p class="card-text">
+                  Expert shaving services for a clean and polished look.
+                </p>
+
+                <a href="#" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <i class="flaticon-hair-dye"></i>
+                </div>
+
+                <h3 class="h3">
+                  <a href="#" class="card-title">Multi Hair Colors</a>
+                </h3>
+
+                <p class="card-text">
+                  Transform your look with our vibrant multi-hair color options.
+                </p>
+
+                <a href="#" class="card-btn" aria-label="more">
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </a>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+      <!-- 
+        - #APPOINTMENT
+      -->
+
+      <section class="section appoin" id="appointment" aria-label="appointment">
+        <div class="container">
+
+          <div class="appoin-card">
+
+            <figure class="card-banner img-holder" style="--width: 250; --height: 774;">
+              <img src="./assets/images/appoin-banner-1.jpg" width="250" height="774" loading="lazy" alt=""
+                class="img-cover">
+            </figure>
+
+            <div class="card-content">
+
+              <h2 class="h2 section-title">View appointment and feedback</h2>
+              <br>
+              <br>
+              
+
+              <a href="entries.html">
+                <button class="form-btn">
+                  <span class="span">View Appointments</span>
+
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </button>
+              </a>
+              <br>
+              <br>
+           
+
+             
+
+              <a href="feedbackview.html">
+                <button class="form-btn">
+                  <span class="span">View feedback</span>
+
+                  <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                </button>
+              </a>
+            </div>
+
+            <figure class="card-banner img-holder" style="--width: 250; --height: 774;">
+              <img src="./assets/images/appoin-banner-2.jpg" width="250" height="774" loading="lazy" alt=""
+                class="img-cover">
+            </figure>
+
+          </div>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+<!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer has-bg-image" style="background-image: url('./assets/images/footer-bg.png')">
+    <div class="container">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            
+            <span class="span">Hair Salon</span>
+          </a>
+
+          <form action="" class="input-wrapper">
+
+            <input type="email" name="email_address"  required class="email-field">
+            <a href="#home"
+            <button type="submit" class="btn has-before">
+              <span class="span">Go back up</span>
+
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </button>
+            </a>
+          </form>
+
+        </div>
+
+        <div class="footer-link-box">
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">Quick Links</p>
+            </li>
+
+            <li>
+              <a href="#services" class="footer-link has-before">Our Services</a>
+            </li>
+
+            
+            <li>
+              <a href="#appointment" class="footer-link has-before">Appointments</a>
+            </li>
+
+            <li>
+              <a href="#appointment" class="footer-link has-before">Feedback</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link has-before">Start</a>
+            </li>
+
+          </ul>
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">Services</p>
+            </li>
+
+            <li>
+              <a href="#services" class="footer-link has-before">Hair Cutting</a>
+            </li>
+
+            <li>
+              <a href="#services" class="footer-link has-before">Shaving & Design</a>
+            </li>
+
+            <li>
+              <a href="#services" class="footer-link has-before">Hair Colors</a>
+            </li>
+
+            <li>
+              <a href="#services" class="footer-link has-before">Beauty & Spa</a>
+            </li>
+
+            <li>
+              <a href="#services" class="footer-link has-before">Body Massages</a>
+            </li>
+
+          </ul>
+
+          
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">Contact Us</p>
+            </li>
+
+            <li class="footer-list-item">
+              <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+
+              <address class="contact-link">
+                Bhilai,Chhattisgarh
+              </address>
+            </li>
+
+            <li class="footer-list-item">
+              <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+
+              <a href="tel:+0123456789" class="contact-link">0123456789</a>
+            </li>
+
+            <li class="footer-list-item">
+              <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+              <span class="contact-link">Sun - Friday, 08 am - 09 pm</span>
+            </li>
+
+            <li class="footer-list-item">
+              <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+              <a href="mailto:support@gmail.com" class="contact-link">support@gmail.com</a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright">
+          &copy; 2025 <a href="#" class="copyright-link">Salon Reservation System</a>. All Rights Reserved.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+
+
+
+
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script>
+    // Function to get query parameters from URL
+    const firstname=localStorage.getItem('first-name')
+    
+
+    const loggedInUser = sessionStorage.getItem("currentUser");
+
+
+    
+
+    document.getElementById("hjk").textContent = loggedInUser;
+    
+
+
+    
+
+
+   
+</script>
+
+<script>
+  document.getElementById("appointmentform").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const name = document.getElementById("nameappointment").value;
+            const email = document.getElementById("emailappointment").value;
+            const number = document.getElementById("phoneappointment").value;
+            const service = document.getElementById("categoryappointment").value;
+            const date = document.getElementById("dateappointment").value;
+            const message = document.getElementById("messageappointment").value;
+            const status = 'Pending'
+
+            // Create an entry object with a unique ID
+            const entry = {
+                id: Date.now(),  // Use timestamp as a unique ID
+                name: name,
+                email: email,
+                number: number,
+                service: service,
+                date: date,
+                message: message,
+                status: status
+            };
+
+            // Get existing entries from localStorage or create a new array
+            let entries = JSON.parse(localStorage.getItem("entries")) || [];
+            
+            // Add the new entry to the array
+            entries.push(entry);
+
+            // Save the updated array back to localStorage
+            localStorage.setItem("entries", JSON.stringify(entries));
+
+            alert("Appointment submitted successfully!");
+            this.reset(); 
+            document.getElementById("nameappointment").value = firstname;
+             // Reset the form after submission
+        });
+</script>
+
+<script>
+  function clearstor() {
+    sessionStorage.clear();
+}
+</script>
+</script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  
+<script src="chatbot.js"></script>
+</body>
+
+</html>

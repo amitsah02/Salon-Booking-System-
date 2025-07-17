@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Customer Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        #back1 {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left:670px ;
+        }
+
+        
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .feedback-entry {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+        .feedback-entry:last-child {
+            border-bottom: none;
+        }
+        .feedback-entry p {
+            margin: 5px 0;
+        }
+        .feedback-entry strong {
+            color: #27ae60;
+        }
+        .delete-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Customer Feedback</h2>
+
+        <div id="feedbackList">
+            <!-- Feedback entries will be populated here -->
+        </div>
+    </div>
+
+    <button id="back1" onClick="location.href = 'loggedin2.html';">Go back</button>
+
+
+    <script>
+        // Function to load and display feedback from localStorage
+        function loadFeedback() {
+            const feedbackList = JSON.parse(localStorage.getItem('feedbackList')) || [];
+            const feedbackContainer = document.getElementById('feedbackList');
+            feedbackContainer.innerHTML = ''; // Clear previous entries
+
+            if (feedbackList.length === 0) {
+                feedbackContainer.innerHTML = '<p>No feedback available.</p>';
+                return;
+            }
+
+            feedbackList.forEach((feedback, index) => {
+                const feedbackEntry = document.createElement('div');
+                feedbackEntry.classList.add('feedback-entry');
+
+                feedbackEntry.innerHTML = `
+                    <p><strong>Name:</strong> ${feedback.name}</p>
+                    <p><strong>Email:</strong> ${feedback.email}</p>
+                    <p><strong>Staff member:</strong> ${feedback.barberRating}</p>
+                    <p><strong>Service Rating:</strong> ${feedback.serviceRating}</p>
+                    <p><strong>Recommendation:</strong> ${feedback.recommendation}</p>
+                    <p><strong>Comments:</strong> ${feedback.message}</p>
+                    <button class="delete-button" onclick="deleteFeedback(${index})">Delete</button>
+                `;
+
+                feedbackContainer.appendChild(feedbackEntry);
+            });
+        }
+
+        // Function to delete a feedback entry
+        function deleteFeedback(index) {
+            const feedbackList = JSON.parse(localStorage.getItem('feedbackList')) || [];
+            feedbackList.splice(index, 1); // Remove the feedback entry from the list
+            localStorage.setItem('feedbackList', JSON.stringify(feedbackList)); // Save updated list
+            loadFeedback(); // Refresh the feedback list
+        }
+
+        // Load feedback when the page is loaded
+        window.onload = loadFeedback;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barber Portal</title>
+    <style>
+        /* Navbar styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
+            background-color: rgb(28, 18, 224); 
+            padding: 10px; 
+            border-radius: 10px;
+        }
+        nav a:hover {
+            color: #16a085;
+            background-color: rgb(1, 244, 248);
+        }
+        h2,h4 {
+            text-align: center;
+            margin-top: 50px;
+            color: #2c3e50;
+        }
+
+        /* Login Section */
+        .login-container {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1f6a89;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .back {
+            width: 15%;
+            padding: 10px;
+            margin-left: 650px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" onclick="showLoginForm()">Barber Login</a>
+        <a href="#" onclick="showAdminLoginForm()">Admin Login</a>
+    </nav>
+
+    <h2>Welcome to the Barber Portal</h2>
+    <h4>Choose any one above login option</h4><br>
+    <button class="back" onClick="location.href = 'index.html';">Go back to main page</button>
+
+    <!-- Login Form (for barbers) -->
+    <div id="loginForm" class="login-container" style="display:none;">
+        <h3>Barber Login</h3>
+        <input type="text" id="barberUsername" placeholder="Username">
+        <input type="password" id="barberPassword" placeholder="Password">
+        <button onclick="barberLogin()">Login</button>
+        <br>
+        <br>
+        <button onClick="location.href = 'index2.html';">Go back</button>
+        <p id="loginError" class="error"></p>
+    </div>
+
+    <!-- Admin Login Form -->
+    <div id="adminLoginForm" class="login-container" style="display:none;">
+        <h3>Admin Login</h3>
+        <input type="text" id="adminUsername" placeholder="Username">
+        <input type="password" id="adminPassword" placeholder="Password">
+        <button onclick="adminLogin()">Admin Login</button>
+        <br>
+        <br>
+        <button onClick="location.href = 'index2.html';">Go back</button>
+        <p id="adminLoginError" class="error"></p>
+    </div>
+
+    <script>
+        // Hardcoded admin credentials
+        const adminCredentials = {
+            username: 'admin',
+            password: 'admin123'
+        };
+
+        // Show barber login form
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('adminLoginForm').style.display = 'none';
+        }
+
+        // Show admin login form
+        function showAdminLoginForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('adminLoginForm').style.display = 'block';
+        }
+
+        // Barber login function
+        function barberLogin() {
+            const username = document.getElementById('barberUsername').value;
+            const password = document.getElementById('barberPassword').value;
+
+            // Retrieve barbers from localStorage
+            const barbers = JSON.parse(localStorage.getItem('barbers')) || [];
+
+            // Check if barber exists
+            const barber = barbers.find(b => b.username === username && b.password === password);
+            if (barber) {
+                sessionStorage.setItem('currentUser', username); // Save barber session
+                window.location.href = 'loggedin2.html'; // Redirect to barber page
+            } else {
+                document.getElementById('loginError').textContent = 'Invalid credentials!';
+            }
+
+
+            
+        }
+
+        // Admin login function
+        function adminLogin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                window.location.href = 'adminportal.html'; // Redirect to admin portal
+            } else {
+                document.getElementById('adminLoginError').textContent = 'Invalid admin credentials!';
+            }
+        }
+    </script>
+</body>
+</html>
